@@ -1,5 +1,4 @@
 {
-  "version": 1,
   "rules": [
     {
       "domain": [
@@ -92799,6 +92798,7 @@
         "verify.philippineairlines.com",
         "verify.spin.app",
         "verify.test.spin.app",
+        "verifysession.uxcam.com",
         "veritastechnologiesl.tt.omtrdc.net",
         "verizon-branch.locationlabs.com",
         "verizonenterprisesol.tt.omtrdc.net",
@@ -101636,5 +101636,6 @@
         "zzzoraclecloudsupportp03e10-app-trk.eloquademos.com"
       ]
     }
-  ]
+  ],
+  "version": 1
 }
