@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "rules": [
     {
       "domain": [
@@ -73302,6 +73303,7 @@
         "servertracking.mohamadalaya.com",
         "servertype.selfiestore.uz",
         "servervmidia.venturohub.com",
+        "service-ad-image-ga-weighted.prd.pluto.tv",
         "service-ad-image-ga.prd.pluto.tv",
         "service-ad-impression-proxy-use1-1.prd.pluto.tv",
         "service-api.flarelane.com",
@@ -77490,6 +77492,7 @@
         "sp.pal-item.com",
         "sp.pamklein.com",
         "sp.pcid.ca",
+        "sp.pluto.tv",
         "sp.pnj.com",
         "sp.portclintonnewsherald.com",
         "sp.postcrescent.com",
@@ -101636,6 +101639,5 @@
         "zzzoraclecloudsupportp03e10-app-trk.eloquademos.com"
       ]
     }
-  ],
-  "version": 1
+  ]
 }
