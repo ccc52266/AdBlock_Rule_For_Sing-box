@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "rules": [
     {
       "domain": [
@@ -38649,6 +38650,7 @@
         "engage2.accfb.org",
         "engage2demand.cisco.com",
         "engagefront.theweathernetwork.com",
+        "engagelab.cc",
         "engagement.education.minecraft.net",
         "engagement.globalsign.com",
         "engagement.moodmedia.com",
@@ -41595,6 +41597,7 @@
         "glkge.ekster.com",
         "glob13lid3.click.s11.sfmc-osl.com",
         "global-go.experian.com",
+        "global-sis.engagelab.com",
         "global.appnext.com",
         "global.cognizant.com",
         "global.notifysrv.com",
@@ -60597,6 +60600,7 @@
         "mix.iaraudio.com",
         "mixadvert.com",
         "mixpanel-proxy.ted.com",
+        "mixpanel.tigocloud.net",
         "mj23.eulerian.com",
         "mjafvw.jungborn.de",
         "mjbizcon.montel.com",
@@ -101625,6 +101629,5 @@
         "zzzoraclecloudsupportp03e10-app-trk.eloquademos.com"
       ]
     }
-  ],
-  "version": 1
+  ]
 }
