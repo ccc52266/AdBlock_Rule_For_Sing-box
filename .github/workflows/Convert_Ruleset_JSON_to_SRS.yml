@@ -21,11 +21,11 @@ jobs:
       - name: Check and download sing-box v1.12.17 if needed
         shell: powershell
         run: |
-          $exePath = "./sing-box.exe"
+          $exePath = "./sing-box-1.12.17-windows-amd64.zip"
           $downloadMarker = "./.sing-box_downloaded"
           
           if (-not (Test-Path $exePath) -or -not (Test-Path $downloadMarker)) {
-            Write-Host "sing-box.exe or .sing-box_downloaded not found, downloading..."
+            Write-Host "sing-box-1.12.17-windows-amd64.zip or .sing-box_downloaded not found, downloading..."
             $url = "https://github.com/SagerNet/sing-box/releases/download/v1.12.17/sing-box-1.12.17-windows-amd64.zip"
             $zipFile = "sing-box.zip"
             $maxAttempts = 5
@@ -37,7 +37,7 @@ jobs:
                 
                 Expand-Archive -Path $zipFile -DestinationPath . -Force
                 Remove-Item -Path $zipFile
-                $exeFile = Get-ChildItem -Recurse -Filter "*sing-box*.exe" | Select-Object -First 1
+                $exeFile = Get-ChildItem -Recurse -Filter "*sing-box-1.12.17-windows-amd64*.zip" | Select-Object -First 1
                 if ($exeFile) {
                   Rename-Item -Path $exeFile.FullName -NewName $exePath -Force
                   New-Item -Path . -Name ".sing-box_downloaded" -ItemType "file" -Force
@@ -56,14 +56,14 @@ jobs:
               }
             }
           } else {
-            Write-Host "sing-box.exe and .sing-box_downloaded already exist."
+            Write-Host "sing-box-1.12.17-windows-amd64.zip and .sing-box_downloaded already exist."
           }
 
       # 步骤3：转换规则集（依赖于 sing-box.exe）
       - name: Convert ruleset
         shell: powershell
         run: |
-          $exePath = "./sing-box.exe"
+          $exePath = "./sing-box-1.12.17-windows-amd64.zip"
           
           if (Test-Path $exePath) {
             Write-Host "Sing-box version:"
@@ -93,7 +93,7 @@ jobs:
               }
             }
           } else {
-            Write-Host "sing-box.exe not found, skipping conversion step."
+            Write-Host "sing-box-1.12.17-windows-amd64.zip not found, skipping conversion step."
             exit 1
           }
 
