@@ -7,6 +7,9 @@
 
 # 定义广告过滤器URL列表
 $urlList = @(
+"https://github.com/hululu1068/AdGuard-Rule/raw/refs/heads/main/rule/all.txt",  
+"https://github.com/hululu1068/AdGuard-Rule/raw/refs/heads/main/rule/all.txt",  
+"https://raw.githubusercontent.com/miaoermua/AdguardFilter/main/rule.txt",  
 "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt",  
 "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_3_Spyware/filter.txt",  
 "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_4_Social/filter.txt",  
@@ -128,9 +131,9 @@ $webClient = New-Object System.Net.WebClient
 $webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 
 # DNS规范验证函数
-function Is-ValidDNSDomain($domain) {
-    if ($domain.Length -gt 253) { return $false }
-    $labels = $domain -split "\."
+function Is-ValidDNSDomain($domain_suffix) {
+    if ($domain_suffix.Length -gt 253) { return $false }
+    $labels = $domain_suffix -split "\."
     foreach ($label in $labels) {
         if ($label.Length -eq 0 -or $label.Length -gt 63) { return $false }
         if ($label -notmatch "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$") {
@@ -153,48 +156,48 @@ foreach ($url in $urlList) {
         foreach ($line in $lines) {
             # 直接处理以 @@ 开头的规则，提取域名并加入白名单
             if ($line.StartsWith('@@')) {
-                $domains = $line -replace '^@@', '' -split '[^\w.-]+'
-                foreach ($domain in $domains) {
-                    if (-not [string]::IsNullOrWhiteSpace($domain) -and $domain -match '[\w-]+(\.[[\w-]+)+') {
-                        $excludedDomains.Add($domain.Trim()) | Out-Null
+                $domain_suffixs = $line -replace '^@@', '' -split '[^\w.-]+'
+                foreach ($domain_suffix in $domain_suffixs) {
+                    if (-not [string]::IsNullOrWhiteSpace($domain_suffix) -and $domain_suffix -match '[\w-]+(\.[[\w-]+)+') {
+                        $excludedDomains.Add($domain_suffix.Trim()) | Out-Null
                     }
                 }
             }
             else {
                 # 匹配 Adblock/Easylist 格式的规则
                 if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
-                    $domain = $Matches[1]
-                    $uniqueRules.Add($domain) | Out-Null
+                    $domain_suffix = $Matches[1]
+                    $uniqueRules.Add($domain_suffix) | Out-Null
                 }
                 # 匹配 Hosts 文件格式的 IPv4 规则
                 elseif ($line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') {
-                    $domain = $Matches[2]
-                    $uniqueRules.Add($domain) | Out-Null
+                    $domain_suffix = $Matches[2]
+                    $uniqueRules.Add($domain_suffix) | Out-Null
                 }
                 # 匹配 Hosts 文件格式的 IPv6 规则（以 ::1 或 :: 开头）
                 elseif ($line -match '^::(1)?\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') {
-                    $domain = $Matches[2]
-                    $uniqueRules.Add($domain) | Out-Null
+                    $domain_suffix = $Matches[2]
+                    $uniqueRules.Add($domain_suffix) | Out-Null
                 }
                 # 匹配 Dnsmasq address=/域名/格式的规则
                 elseif ($line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/$') {
-                    $domain = $Matches[1]
-                    $uniqueRules.Add($domain) | Out-Null
+                    $domain_suffix = $Matches[1]
+                    $uniqueRules.Add($domain_suffix) | Out-Null
                 }
                 # 匹配 Dnsmasq server=/域名/的规则
                 elseif ($line -match '^server=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/$') {
-                    $domain = $Matches[1]
-                    $uniqueRules.Add($domain) | Out-Null
+                    $domain_suffix = $Matches[1]
+                    $uniqueRules.Add($domain_suffix) | Out-Null
                 }
                 # 匹配通配符规则
                 elseif ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
-                    $domain = $Matches[1]
-                    $uniqueRules.Add($domain) | Out-Null
+                    $domain_suffix = $Matches[1]
+                    $uniqueRules.Add($domain_suffix) | Out-Null
                 }
                 # 处理纯域名行
                 elseif ($line -match '^([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') {
-                    $domain = $Matches[1]
-                    $uniqueRules.Add($domain) | Out-Null
+                    $domain_suffix = $Matches[1]
+                    $uniqueRules.Add($domain_suffix) | Out-Null
                 }
             }
         }
@@ -209,15 +212,15 @@ foreach ($url in $urlList) {
 $validRules = [System.Collections.Generic.HashSet[string]]::new()
 $validExcludedDomains = [System.Collections.Generic.HashSet[string]]::new()
 
-foreach ($domain in $uniqueRules) {
-    if (Is-ValidDNSDomain($domain)) {
-        $validRules.Add($domain) | Out-Null
+foreach ($domain_suffix in $uniqueRules) {
+    if (Is-ValidDNSDomain($domain_suffix)) {
+        $validRules.Add($domain_suffix) | Out-Null
     }
 }
 
-foreach ($domain in $excludedDomains) {
-    if (Is-ValidDNSDomain($domain)) {
-        $validExcludedDomains.Add($domain) | Out-Null
+foreach ($domain_suffix in $excludedDomains) {
+    if (Is-ValidDNSDomain($domain_suffix)) {
+        $validExcludedDomains.Add($domain_suffix) | Out-Null
     }
 }
 
@@ -232,10 +235,10 @@ $sortedDomains = $finalRules | Sort-Object
 
 # 将规则格式化为JSON格式
 $jsonContent = @{
-    version = 1  # 设置 version 为 1
+    version = 2  # 设置 version 为 1
     rules = @(
         @{
-            domain= $sortedDomains
+            domain_suffix= $sortedDomains
         }
     )
 }
