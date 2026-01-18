@@ -27,7 +27,7 @@ jobs:
           if (-not (Test-Path $exePath) -or -not (Test-Path $downloadMarker)) {
             Write-Host "sing-box-1.12.17-windows-amd64.zip or .sing-box_downloaded not found, downloading..."
             $url = "https://github.com/SagerNet/sing-box/releases/download/v1.12.17/sing-box-1.12.17-windows-amd64.zip"
-            $zipFile = "sing-box.zip"
+            $zipFile = "sing-box-1.12.17-windows-amd64.zip"
             $maxAttempts = 5
             
             for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
@@ -76,7 +76,7 @@ jobs:
             for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
               try {
                 Write-Host "Attempting conversion (Attempt $attempt)..."
-                & $exePath rule-set compile --output adblock_reject.srs adblock_reject.json  # 正确的转换文件名
+                & $exePath sing-box rule-set compile --output adblock_reject.srs adblock_reject.json  # 正确的转换文件名
                 if ($LASTEXITCODE -eq 0) {
                   Write-Host "Conversion successful!"
                   break
