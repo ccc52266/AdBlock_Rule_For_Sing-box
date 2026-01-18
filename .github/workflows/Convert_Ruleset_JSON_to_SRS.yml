@@ -43,7 +43,7 @@ jobs:
         fi
     - name: Convert AdGuard DNS Filter to sing-box rule set
       run: |
-        sing-box rule-set compile --output ./rule/adblock_reject.srs ./rule/adblock_reject.json
+        sing-box rule-set compile --output ./adblock_reject.srs ./adblock_reject.json
     - name: Run script
       run: python ../main.py
       working-directory: ./
@@ -51,7 +51,6 @@ jobs:
       run: |
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action"
-        git add ./rule/*.json
         git add ./rule/*.srs
 
         # 检查是否有文件被修改
