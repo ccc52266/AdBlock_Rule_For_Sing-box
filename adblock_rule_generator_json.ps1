@@ -7,8 +7,8 @@
 
 # 定义广告过滤器URL列表
 $urlList = @(
-"https://github.com/ccc52266/AdGuard-Rule/raw/refs/heads/main/rule/all.txt",
-"https://raw.githubusercontent.com/REIJI007/Adblock-Rule-Collection/main/ADBLOCK_RULE_COLLECTION.txt",
+"https://github.com/hululu1068/AdGuard-Rule/raw/refs/heads/main/rule/all.txt",
+"https://raw.githubusercontent.com/REIJI007/Adblock-Rule-Collection/main/ADBLOCK_RULE_COLLECTION_Lite.txt",
 "https://raw.githubusercontent.com/miaoermua/AdguardFilter/main/rule.txt",
 "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt",  
 "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_3_Spyware/filter.txt",  
