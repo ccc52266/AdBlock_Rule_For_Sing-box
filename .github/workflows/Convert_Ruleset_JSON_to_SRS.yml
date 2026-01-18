@@ -31,7 +31,7 @@ jobs:
     - name: Download content
       run: |
         URL="https://github.com/ccc52266/AdBlock_Rule_For_Sing-box/raw/refs/heads/main/adblock_reject.json"
-        OUTPUT_FILE="./rule/ADSBLOCK.json"
+        OUTPUT_FILE="./adblock_reject.srs"
 
         curl -L $URL -o $OUTPUT_FILE
 
@@ -43,7 +43,7 @@ jobs:
         fi
     - name: Convert AdGuard DNS Filter to sing-box rule set
       run: |
-        sing-box rule-set compile --output ./rule/ADSBLOCK.srs ./rule/ADSBLOCK.json
+        sing-box rule-set compile --output ./rule/adblock_reject.srs ./rule/adblock_reject.json
     - name: Run script
       run: python ../main.py
       working-directory: ./rule/
