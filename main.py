@@ -6,7 +6,7 @@ import json
 import requests
 import yaml
 import ipaddress
-from io import StringIO
+from io import StringIO 
 
 # 映射字典
 MAP_DICT = {'DOMAIN-SUFFIX': 'domain_suffix', 'HOST-SUFFIX': 'domain_suffix', 'host-suffix': 'domain_suffix', 'DOMAIN': 'domain', 'HOST': 'domain', 'host': 'domain',
