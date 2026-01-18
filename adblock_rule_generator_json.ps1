@@ -7,7 +7,7 @@
 
 # 定义广告过滤器URL列表
 $urlList = @(
-"https://github.com/hululu1068/AdGuard-Rule/raw/refs/heads/main/rule/all.txt",  
+"https://raw.githubusercontent.com/REIJI007/Adblock-Rule-Collection/main/ADBLOCK_RULE_COLLECTION_Lite.txt",  
 "https://github.com/hululu1068/AdGuard-Rule/raw/refs/heads/main/rule/all.txt",  
 "https://raw.githubusercontent.com/miaoermua/AdguardFilter/main/rule.txt",  
 "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt",  
@@ -238,7 +238,7 @@ $jsonContent = @{
     version = 2  # 设置 version 为 1
     rules = @(
         @{
-            domain= $sortedDomains
+            domain_suffix= $sortedDomains
         }
     )
 }
